@@ -1,0 +1,4 @@
+a.out
+*.o
+t.c
+.DS_Store
