@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 11:36:04 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:44:05 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		contains_non_dig(char *str);
 typedef struct s_data
 {
 	int	args[5];
+	int	nargs;
+	int	philo_id;
 }	t_data;
 
 typedef struct s_vars

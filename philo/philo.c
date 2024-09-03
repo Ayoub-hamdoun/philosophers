@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 12:57:43 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:46:05 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ void leaks(void)
 }
 // end tmp
 
+void	check_nargs(int nargs)
+{
+	if (nargs > 5 || nargs < 4)
+	{
+		write(2, "Wrong usage\n", 12);
+		exit(1);
+	}
+}
+
 void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 {
 	char	**raw_args;
@@ -34,6 +43,7 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 	v->i = 1;
 	v->k = 0;
 	v->j = 0;
+	data->nargs = 0;
 	while (v->i < ac)
 	{
 		if (is_empty(av[v->i]))
@@ -46,6 +56,7 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 				exit(1);
 			data->args[v->k] = ft_atoi(raw_args[v->j]);
 			free(raw_args[v->j]);
+			(data->nargs)++;
 			(v->j)++;
 			(v->k)++;
 		}
@@ -58,16 +69,18 @@ int	main(int argc, char *argv[])
 {
 	t_data data;
 	t_vars vars;
-	struct timeval t;
+	// struct timeval t;
 
-	if (argc > 6 || argc <= 1)
-	{
-		write(2, "Wrong usage\n", 12);
-		exit(1);
-	}
+
+	// atexit(leaks);
 	pars_args(argc, argv, &data, &vars);
-
+	check_nargs(data.nargs);
 	
-	printf("%ld", time);
+	// int k = 0;
+	// while (k < argc)
+	// {
+	// 	printf("%d ", data.args[k]);
+	// 	k++;
+	// }
 	return (0);
 }
