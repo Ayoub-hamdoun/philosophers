@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 17:24:36 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:35:03 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 {
 	char	**raw_args;
 
-
+	initvars(v);
 	data->nargs = 0;
 	while (v->i < ac)
 	{
@@ -56,6 +56,8 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 			free(raw_args[v->j]);
 			(data->nargs)++;
 			(v->j)++;
+			if (data->args[v->k] < 0)
+				exit(1); //TODO - cleanup function here
 			(v->k)++;
 		}
 		free(raw_args);
@@ -82,3 +84,4 @@ int	main(int argc, char *argv[])
 	// }
 	return (0);
 }
+//TODO : function to craete threads 
