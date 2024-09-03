@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 09:32:24 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/08/31 12:53:33 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:42:48 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_atoi(char *str)
 {
 	int		i;
 	long	signe;
-	int	res;
+	int		res;
 	long	temp;
 
 	i = 0;
@@ -43,7 +43,7 @@ int	ft_atoi(char *str)
 
 int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -53,7 +53,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	is_white_space(char *str)
+int	is_empty(char *str)
 {
 	int	i;
 
@@ -90,9 +90,9 @@ int	contains_non_dig(char *str)
 	return (0);
 }
 
-int not_valid(char *str)
+int	not_valid(char *str)
 {
-	int i;
+	int	i;
 
 	if (!str)
 		return (1);
