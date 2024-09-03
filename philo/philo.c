@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 16:46:05 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:24:36 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 {
 	char	**raw_args;
 
-	v->i = 1;
-	v->k = 0;
-	v->j = 0;
+
 	data->nargs = 0;
 	while (v->i < ac)
 	{
