@@ -6,14 +6,13 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 17:35:03 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:50:12 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//tmp
-
+//SECTION : TMP
 void *tst0()
 {
 	printf("msg1\n");
@@ -25,7 +24,7 @@ void leaks(void)
 {
 	system ("leaks philo");
 }
-// end tmp
+//!SECTION
 
 void	check_nargs(int nargs)
 {
@@ -65,23 +64,35 @@ void	pars_args(int ac, char *av[], t_data *data, t_vars *v)
 	}
 }
 
+void	*todo(void *i)
+{
+	
+	return NULL;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data data;
 	t_vars vars;
-	// struct timeval t;
-
+	pthread_t t[data.args[0]];
+	long i = 0;
 
 	// atexit(leaks);
 	pars_args(argc, argv, &data, &vars);
 	check_nargs(data.nargs);
-	
-	// int k = 0;
-	// while (k < argc)
-	// {
-	// 	printf("%d ", data.args[k]);
-	// 	k++;
-	// }
+	while (i < data.args[0])
+	{
+		pthread_create(&t[i], NULL, todo, (void *)i);
+		i++;
+	}
+	i = 0;
+	while (i < data.args[0])
+	{
+		pthread_join(t[i], NULL);
+		i++;
+	}
+	printf("finished");
+	pthread_exit(NULL);
 	return (0);
 }
 //TODO : function to craete threads 
