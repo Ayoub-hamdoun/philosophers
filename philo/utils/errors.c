@@ -6,15 +6,16 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:32:18 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/03 11:38:22 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:21:52 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	print_err(int err_n)
+int	print_error(char *str, char **array)
 {
-	if (!err_n)
-		printf("Error : empty argument");
-	exit(1);
+	if (str)
+		printf("%s\n", str);
+	free_2d(array);
+	return (1);
 }
