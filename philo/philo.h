@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/28 15:21:41 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:16:26 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,30 @@
 
 //used structs
 
+typedef struct s_fork
+{
+	pthread_mutex_t	fork;
+	int				id;
+}	t_fork;
+
 typedef struct s_data
 {
 	int	n_philos;
-	int time_die;
+	int	time_die;
 	int	time_eat;
 	int	time_sleep;
 	int	n_meals;
+	long start_sim;
+	long end_sim;
+	t_fork *forks;
 }	t_data;
 
-typedef struct s_philo{
-	int	id;
+typedef struct s_philo
+{
+	int			id;
+	int			num_meals;
+	long		time_lmeal;
+	pthread_t	philo_thread;
 }	t_philo;
 
 typedef struct s_vars

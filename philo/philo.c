@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/28 16:01:43 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:43:31 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,26 @@ int	main(int argc, char *argv[])
 {
 	// t_data data; 
 	t_vars 		vars;
-	pthread_t 	t[vars.args[0]];
+	pthread_t t1;
+	pthread_t t2;
+	// pthread_t 	t[vars.args[0]];
 	// long i = 0;
 
-	atexit(leaks);
-	if (pars_args(argc, argv, &vars) || check_nargs(vars.nargs))
+	// atexit(leaks);
+	if (pars_args(argc, argv, &vars) || check_parsed_input(&vars))
 		return (1);
-	printf("to the threads");
+	// printf("\a to the threads");
+	pthread_create(&t1, NULL, &tst0, NULL);
+	pthread_create(&t2, NULL, &tst0, NULL);
+	pthread_join(t1,  NULL);
+	pthread_join(t2,  NULL);
+
+
 	return (0);
 }
 //TODO : SEE BELOW
 /**
- * ft_atol instad of atoi : for >INTMAX args
+ * ft_atol instad of atoi : for > INTMAX args
  * 
  * 
  */

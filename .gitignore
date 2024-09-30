@@ -4,3 +4,4 @@ t.c
 .DS_Store
 *.tldr
 philo/philo
+*.dSYM
