@@ -6,22 +6,11 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:12:43 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/28 15:43:40 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:30:43 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	init_vars(t_vars *vars)
-{
-	int	i;
 
-	i = 0;
-	vars->i = 1;
-	vars->j = 0;
-	vars->k = 0;
-	vars->nargs = 0;
-	while (i++ < 5)
-		vars->args[i] = 0;
-}
 

@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/09/30 16:16:26 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:50:01 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 //used structs
 
+typedef struct s_philo t_philo;
+
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
@@ -29,14 +31,15 @@ typedef struct s_fork
 
 typedef struct s_data
 {
-	int	n_philos;
-	int	time_die;
-	int	time_eat;
-	int	time_sleep;
-	int	n_meals;
-	long start_sim;
-	long end_sim;
-	t_fork *forks;
+	int		n_philos;
+	long	time_die;
+	long	time_eat;
+	long	time_sleep;
+	int		n_meals;
+	long	start_sim;
+	long	end_sim;
+	t_fork	*forks;
+	t_philo	*philos;
 }	t_data;
 
 typedef struct s_philo
@@ -44,7 +47,9 @@ typedef struct s_philo
 	int			id;
 	int			num_meals;
 	long		time_lmeal;
+	int			is_dead;
 	pthread_t	philo_thread;
+	t_data		*data;
 }	t_philo;
 
 typedef struct s_vars
@@ -70,6 +75,7 @@ void	free_2d(char **array);
 int		not_valid(char *str);
 int		is_empty(char *str);
 int		contains_non_dig(char *str);
+int		init_data(t_data *data, t_vars *vars);
 int		pars_args(int ac, char *av[], t_vars *vars);
 
 
