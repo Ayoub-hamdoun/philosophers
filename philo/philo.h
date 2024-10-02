@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/01 16:50:01 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:15:14 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_philo t_philo;
 
 typedef struct s_fork
 {
-	pthread_mutex_t	fork;
 	int				id;
+	pthread_mutex_t	fork;
 }	t_fork;
 
 typedef struct s_data
@@ -37,20 +37,22 @@ typedef struct s_data
 	long	time_sleep;
 	int		n_meals;
 	long	start_sim;
-	long	end_sim;
+	int		end_sim;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_data;
 
-typedef struct s_philo
+struct s_philo
 {
 	int			id;
 	int			num_meals;
 	long		time_lmeal;
 	int			is_dead;
 	pthread_t	philo_thread;
+	t_fork		*l_fork;
+	t_fork		*r_fork;
 	t_data		*data;
-}	t_philo;
+};
 
 typedef struct s_vars
 {
