@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 16:54:53 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:02:30 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_vars(t_vars *vars)
 int	init_data(t_data *data, t_vars *vars)
 {
 	int	i;
+	int philo_nbr;
 	t_philo *philo;
 
 	i = 0;
@@ -58,6 +59,7 @@ int	init_data(t_data *data, t_vars *vars)
 		philo->id = i + 1;
 		philo->is_dead = 0;
 		philo->data = data;
+		philo_nbr = philo->data->n_philos;
 	}
 	
 	return (0);

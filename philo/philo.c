@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 16:41:35 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:46:03 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	main(int argc, char *argv[])
 	// atexit(leaks);
 	if (pars_args(argc, argv, &vars) || check_parsed_input(&vars))
 		return (1);
-	// if (init_data(&data, &vars))
-	// 	return(1);
+	if (init_data(&data, &vars))
+		return(1);
 	return (0);
 }
 //TODO : SEE BELOW
