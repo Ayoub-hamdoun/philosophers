@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/02 12:21:22 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:54:53 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	init_vars(t_vars *vars)
 
 int	init_data(t_data *data, t_vars *vars)
 {
-	data->end_sim = 0;
+	int	i;
+	t_philo *philo;
+
+	i = 0;
+	data->is_done = 0;
 	data->n_philos = vars->args[0];
 	data->time_die = (long)vars->args[1];
 	data->time_eat = (long)vars->args[2];
@@ -40,5 +44,21 @@ int	init_data(t_data *data, t_vars *vars)
 	data->forks = malloc(sizeof(t_fork) * data->n_philos);
 	if (!(data->forks))
 		return (1);
+	while (i < data->n_philos)
+	{
+		if (pthread_mutex_init(&data->forks[i].fork, NULL))
+			return (1);
+		data->forks[i].id = i;
+		i++;
+	}
+	i = 0;
+	while (i < data->n_philos)
+	{
+		philo = &data->philos[i];
+		philo->id = i + 1;
+		philo->is_dead = 0;
+		philo->data = data;
+	}
+	
 	return (0);
 }

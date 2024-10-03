@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/02 12:15:14 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:02:24 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_data
 	long	time_sleep;
 	int		n_meals;
 	long	start_sim;
-	int		end_sim;
+	int		is_done;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_data;
@@ -80,5 +80,8 @@ int		contains_non_dig(char *str);
 int		init_data(t_data *data, t_vars *vars);
 int		pars_args(int ac, char *av[], t_vars *vars);
 
+// time:
+long	get_current_time();
+long	ft_usleep(long ms);
 
 #endif

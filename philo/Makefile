@@ -6,7 +6,7 @@
 #    By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/25 21:39:32 by ayhamdou          #+#    #+#              #
-#    Updated: 2024/10/01 15:10:45 by ayhamdou         ###   ########.fr        #
+#    Updated: 2024/10/03 15:17:40 by ayhamdou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 # FLAGS = -Wall -Wextra -Werror -fsanitize=thread -g -O1
 
 SRC = utils/utils.c utils/utils1.c utils/ft_split.c utils/errors.c  utils/cleanup.c\
-		utils/init.c
+		utils/init.c utils/time.c 
 OBJS = $(SRC:%.c=%.o)
 MAIN = philo.c
 
