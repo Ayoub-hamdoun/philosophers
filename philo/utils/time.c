@@ -6,13 +6,13 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:45:53 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 15:44:27 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:02:57 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-long	get_current_time()
+long	get_current_time(void)
 {
 	long			current;
 	struct timeval	time;
@@ -38,17 +38,16 @@ long	ft_usleep(long ms)
 			return (1);
 		usleep(50);
 		if (j - i >= ms)
-			break;
+			break ;
 	}
 	return (0);
 }
 
-
-// int main(int argc, char const *argv[])
+// int main()
 // {
 // 	long t1 = get_current_time();
-// 	usleep(800000);
-// 	// ft_usleep(800);
+// 	// usleep(800000);
+// 	ft_usleep(800);
 // 	long t2 = get_current_time();
 
 // 	printf("%ld",t2 - t1);

@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 18:02:30 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:39:30 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,5 @@ int	init_data(t_data *data, t_vars *vars)
 		philo->data = data;
 		philo_nbr = philo->data->n_philos;
 	}
-	
 	return (0);
 }

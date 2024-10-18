@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 16:02:24 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:19:25 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_data
 	long	time_eat;
 	long	time_sleep;
 	int		n_meals;
-	long	start_sim;
+	long	start_sim_time;
 	int		is_done;
 	t_fork	*forks;
 	t_philo	*philos;
@@ -81,7 +81,7 @@ int		init_data(t_data *data, t_vars *vars);
 int		pars_args(int ac, char *av[], t_vars *vars);
 
 // time:
-long	get_current_time();
+long	get_current_time(void);
 long	ft_usleep(long ms);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/03 17:46:03 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:15:30 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void *tst0()
 {
 	printf("msg1\n");
-	sleep(3);
+	ft_usleep(3000);
 	printf("msg2\n");
 	return NULL;
 }
@@ -64,16 +64,24 @@ int	pars_args(int ac, char *av[], t_vars *vars)
 
 int	main(int argc, char *argv[])
 {
-	t_data		data; 
+	// t_data		data;
 	t_vars 		vars;
 	// pthread_t 	treads[vars.args[0]];
 	// long i = 0;
 
 	// atexit(leaks);
+	pthread_t t1;
+	pthread_t t2;
+	pthread_t t3;
 	if (pars_args(argc, argv, &vars) || check_parsed_input(&vars))
 		return (1);
-	if (init_data(&data, &vars))
-		return(1);
+	pthread_create(&t1, NULL, &tst0, NULL);
+	pthread_create(&t2, NULL, &tst0, NULL);
+	pthread_create(&t3, NULL, &tst0, NULL);
+	pthread_join(t1, NULL);
+	pthread_join(t2, NULL);
+	pthread_join(t3, NULL);
+
 	return (0);
 }
 //TODO : SEE BELOW
