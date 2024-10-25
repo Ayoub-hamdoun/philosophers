@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/18 19:19:25 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/25 21:56:57 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 	int		n_meals;
 	long	start_sim_time;
 	int		is_done;
+	pthread_mutex_t print;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_data;
@@ -68,6 +69,11 @@ int		ft_strlen(char *str);
 char	**ft_split(char const *s, char c);
 int		ft_atoi(char *str);
 void	init_vars(t_vars *vars);
+void	ft_print(char *str, t_data *data);
+
+// simulation
+
+void	*start_sim(void *philo);
 
 //err/ cleaners
 int		print_error(char *str, char **array);

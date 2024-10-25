@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:45:53 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/18 18:02:57 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:28:06 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ long	ft_usleep(long ms)
 		j = get_current_time();
 		if (!j)
 			return (1);
-		usleep(50);
+		usleep(10);
 		if (j - i >= ms)
 			break ;
 	}
