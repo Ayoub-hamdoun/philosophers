@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:06 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/24 15:24:56 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:11:29 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char *argv[])
 {
 	t_data		data;
 	t_vars 		vars;
-	int i = 0;;
+	int i = 0;
 
 	// atexit(leaks);
 	pars_args(argc, argv, &vars);
