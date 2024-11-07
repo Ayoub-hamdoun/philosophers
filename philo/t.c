@@ -1,6 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 typedef struct s_fork {
@@ -32,6 +33,17 @@ typedef struct s_philo {
     t_data *data;
 } t_philo;
 
+long	get_current_time(void)
+{
+	long			current;
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL))
+		return (0);
+	current = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (current);
+}
+
 void init_forks(t_data *data) {
     data->forks = malloc(sizeof(t_fork) * data->n_philos);
     for (int i = 0; i < data->n_philos; i++) {
@@ -42,6 +54,7 @@ void init_forks(t_data *data) {
 
 void init_philos(t_data *data) {
     data->philos = malloc(sizeof(t_philo) * data->n_philos);
+    long ct = get_current_time();
     for (int i = 0; i < data->n_philos; i++) {
         data->philos[i].id = i;
         data->philos[i].num_meals = 0;
@@ -49,12 +62,13 @@ void init_philos(t_data *data) {
         data->philos[i].l_fork = &data->forks[i];
         data->philos[i].r_fork = &data->forks[(i + 1) % data->n_philos];
         data->philos[i].data = data;
+        data->philos[i].time_lmeal = ct;
     }
 }
 
 void *philosopher_routine(void *arg) {
     t_philo *philo = (t_philo *)arg;
-    while (!philo->data->is_done) {
+    while (!philo->data->is_done && !philo->is_dead) {
         // Think
         printf("Philosopher %d is thinking\n", philo->id);
         usleep(philo->data->time_sleep);
@@ -67,7 +81,7 @@ void *philosopher_routine(void *arg) {
         printf("Philosopher %d is eating\n", philo->id);
         usleep(philo->data->time_eat);
         philo->num_meals++;
-        philo->time_lmeal = time(NULL);
+        philo->time_lmeal = get_current_time();
 
         // Put down forks
         pthread_mutex_unlock(&philo->r_fork->fork);
@@ -79,6 +93,24 @@ void *philosopher_routine(void *arg) {
     }
     return NULL;
 }
+
+void *monitor_routine(void *arg) {
+    t_data *data = (t_data *)arg;
+    while (!data->is_done) {
+        for (int i = 0; i < data->n_philos; i++) {
+            long current_time = get_current_time();
+            if (current_time - data->philos[i].time_lmeal > data->time_die || (data->philos[i].num_meals == data->n_meals)) {
+                data->philos[i].is_dead = 1;
+                data->is_done = 1;
+                printf("Philosopher %d has died\n", data->philos[i].id);
+                break;
+            }
+        }
+        usleep(50); // Sleep for a short time before checking again
+    }
+    return NULL;
+}
+
 
 void create_philosopher_threads(t_data *data) {
     for (int i = 0; i < data->n_philos; i++) {
@@ -102,7 +134,7 @@ void destroy_mutexes(t_data *data) {
 int main(int argc, char **argv) {
     t_data data;
     data.n_philos = 5;
-    data.time_die = 10000;
+    data.time_die = 100000;
     data.time_eat = 2000;
     data.time_sleep = 3000;
     data.n_meals = 3;
@@ -112,8 +144,13 @@ int main(int argc, char **argv) {
     init_forks(&data);
     init_philos(&data);
 
+    pthread_t monitor_thread;
+    pthread_create(&monitor_thread, NULL, monitor_routine, &data);
+
     create_philosopher_threads(&data);
     join_philosopher_threads(&data);
+
+    pthread_join(monitor_thread, NULL);
     destroy_mutexes(&data);
 
     free(data.forks);
