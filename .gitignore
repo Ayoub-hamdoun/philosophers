@@ -1,6 +1,5 @@
 a.out
 *.o
 .DS_Store
-*.tldr
 philo/philo
 *.dSYM

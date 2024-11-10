@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/25 21:53:04 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:39:28 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ int	init_data(t_data *data, t_vars *vars)
 	data->time_sleep = (long)vars->args[3];
 	data->n_meals = vars->args[4];
 	data->start_sim_time = get_current_time();
-	data->philos = malloc(sizeof(t_philo) * data->n_philos);
-	if (!(data->philos))
-		return (1);
+
+	pthread_mutex_init(&data->print, NULL);
 	data->forks = malloc(sizeof(t_fork) * data->n_philos);
 	if (!(data->forks))
 		return (1);
-	pthread_mutex_init(&data->print, NULL);
 	while (i < data->n_philos)
 	{
 		if (pthread_mutex_init(&data->forks[i].fork, NULL))
@@ -55,6 +53,9 @@ int	init_data(t_data *data, t_vars *vars)
 		i++;
 	}
 	i = 0;
+	data->philos = malloc(sizeof(t_philo) * data->n_philos);
+	if (!(data->philos))
+		return (1);
 	while (i < data->n_philos)
 	{
 		philo = &data->philos[i];
