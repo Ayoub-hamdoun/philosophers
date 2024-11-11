@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/11/10 17:39:28 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:04:22 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,41 @@ int	init_data(t_data *data, t_vars *vars)
 	pthread_mutex_init(&data->print, NULL);
 	data->forks = malloc(sizeof(t_fork) * data->n_philos);
 	if (!(data->forks))
+	{
+		printf("malloc faild : t_fork");
 		return (1);
+	}
 	while (i < data->n_philos)
 	{
 		if (pthread_mutex_init(&data->forks[i].fork, NULL))
+		{
+			printf("mutex init faild");
 			return (1);
+		}
 		data->forks[i].id = i;
 		i++;
 	}
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->n_philos);
 	if (!(data->philos))
+	{
+		printf("malloc faild : t_philo");
 		return (1);
+	}
 	while (i < data->n_philos)
 	{
 		philo = &data->philos[i];
+		philo->data = data;
 		philo->id = i + 1;
 		philo->is_dead = 0;
-		philo->data = data;
 		philo_nbr = philo->data->n_philos;
+		philo->r_fork = &data->forks[i];
+		philo->l_fork = &data->forks[(i + 1) % data->n_philos];
+		if (!philo->id % 2)
+		{
+			philo->l_fork = &data->forks[i];
+			philo->r_fork = &data->forks[(i + 1) % data->n_philos];
+		}
 		i++;
 	}
 	i = 0;
@@ -71,6 +87,5 @@ int	init_data(t_data *data, t_vars *vars)
 		pthread_create(&data->philos[i].philo_thread, NULL, &start_sim, &data->philos[i]);
 		i++;
 	}
-	
 	return (0);
 }
