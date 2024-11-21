@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 21:39:21 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/11/10 16:10:33 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:11:49 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_data
 	pthread_mutex_t	print_lock;   // Mutex for printing messages
 	pthread_mutex_t	lock;
 	pthread_t		monitor;
-	t_fork			forks[MAX];       // Array of forks
-	t_philo			philos[MAX];      // Array of philosophers
+	t_fork			*forks;       // Array of forks
+	t_philo			*philos;      // Array of philosophers
 }	t_data;
 
 

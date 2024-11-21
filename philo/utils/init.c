@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:58 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/11/11 16:04:22 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:33:32 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,17 @@ int init_mtx(t_data *data)
 {
 	int	i;
 
-	if (pthread_mutex_init())
+	i = 0;
+	pthread_mutex_init(&data->print_lock, NULL);
+	pthread_mutex_init(&data->lock, NULL);
+	data->forks = (t_fork *)malloc(sizeof(t_fork) * data->philo_count);
+	while (i < data->philo_count)
+	{
+		pthread_mutex_init(&data->forks[i].frk_mtx, NULL);
+		data->forks[i].id = i + 1;
+		i++;
+	}
+	return (0);
 }
 
 int	init_philo(t_data *data, t_vars *var, t_philo *philo)
@@ -104,22 +114,22 @@ int	init_philo(t_data *data, t_vars *var, t_philo *philo)
 	var->i = 0;
 	while (var->i < data->philo_count)
 	{
-		philo = &data->philos[i];
+		philo = &data->philos[var->i];
 		philo->id = var->i + 1;
 		philo->meal_count = 0;
 		philo->last_meal = get_current_time();
 		philo->dead = 0;
-		philo->right_fork = &data->forks[var.i];
+		philo->right_fork = &data->forks[var->i];
 		philo->left_fork = &data->forks[(var->i + 1) % data->philo_count];
-		if ((i + 1) % 2)
+		if ((var->i + 1) % 2)
 		{
 			philo->right_fork = &data->forks[(var->i + 1) % data->philo_count];
-			philo->left_fork = &data->forks[var.i];
+			philo->left_fork = &data->forks[var->i];
 		}
 		//init mutex : philo.lstml_mx ??
-		if (pthread_mutex_init(&data->forks[i].frk_mtx, NULL))
+		if (pthread_mutex_init(&data->forks[var->i].frk_mtx, NULL))
 			return (1);
-		data->forks[i].id = var->i;
+		data->forks[var->i].id = var->i;
 		(var->i)++;
 	}
 	return (init_threads());
