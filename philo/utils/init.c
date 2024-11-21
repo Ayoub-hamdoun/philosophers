@@ -32,60 +32,126 @@ int	init_data(t_data *data, t_vars *vars)
 	int philo_nbr;
 	t_philo *philo;
 
-	i = 0;
-	data->is_done = 0;
-	data->n_philos = vars->args[0];
-	data->time_die = (long)vars->args[1];
-	data->time_eat = (long)vars->args[2];
-	data->time_sleep = (long)vars->args[3];
-	data->n_meals = vars->args[4];
-	data->start_sim_time = get_current_time();
+	data->sim_end = 0;
+	data->philo_count = vars->args[0];
+	data->die_time = (long long)vars->args[1];
+	data->eat_time = (long long)vars->args[2];
+	data->sleep_time = (long long)vars->args[3];
+	data->meal_limit = vars->args[4];
+	data->start_time = get_current_time();
+	data->total_meals = 0;
+	//finished _ finished eat ??
+	if (data->meal_limit != -1)
+		data->total_meals = data->meal_limit * data->philo_count;
 
-	pthread_mutex_init(&data->print, NULL);
-	data->forks = malloc(sizeof(t_fork) * data->n_philos);
-	if (!(data->forks))
-	{
-		printf("malloc faild : t_fork");
-		return (1);
-	}
-	while (i < data->n_philos)
-	{
-		if (pthread_mutex_init(&data->forks[i].fork, NULL))
-		{
-			printf("mutex init faild");
-			return (1);
-		}
-		data->forks[i].id = i;
-		i++;
-	}
-	i = 0;
-	data->philos = malloc(sizeof(t_philo) * data->n_philos);
-	if (!(data->philos))
-	{
-		printf("malloc faild : t_philo");
-		return (1);
-	}
-	while (i < data->n_philos)
+	// data->forks = malloc(sizeof(t_fork) * data->n_philos);
+	// if (!(data->forks))
+	// {
+	// 	printf("malloc faild : t_fork");
+	// 	return (1);
+	// }
+	// while (i < data->n_philos)
+	// {
+	// 	if (pthread_mutex_init(&data->forks[i].fork, NULL))
+	// 	{
+	// 		printf("mutex init faild");
+	// 		return (1);
+	// 	}
+	// 	data->forks[i].id = i;
+	// 	i++;
+	// }
+	// i = 0;
+	// data->philos = malloc(sizeof(t_philo) * data->n_philos);
+	// if (!(data->philos))
+	// {
+	// 	printf("malloc faild : t_philo");
+	// 	return (1);
+	// }
+	// while (i < data->n_philos)
+	// {
+	// 	philo = &data->philos[i];
+	// 	philo->data = data;
+	// 	philo->id = i + 1;
+	// 	philo->is_dead = 0;
+	// 	philo_nbr = philo->data->n_philos;
+	// 	philo->r_fork = &data->forks[i];
+	// 	philo->l_fork = &data->forks[(i + 1) % data->n_philos];
+	// 	if (!philo->id % 2)
+	// 	{
+	// 		philo->l_fork = &data->forks[i];
+	// 		philo->r_fork = &data->forks[(i + 1) % data->n_philos];
+	// 	}
+	// 	i++;
+	// }
+	// i = 0;
+	// while (i < data->n_philos)
+	// {
+	// 	pthread_create(&data->philos[i].philo_thread, NULL, &start_sim, &data->philos[i]);
+	// 	i++;
+	// }
+	return (init_philo(data, vars));
+}
+
+int init_mtx(t_data *data)
+{
+	int	i;
+
+	if (pthread_mutex_init())
+}
+
+int	init_philo(t_data *data, t_vars *var, t_philo *philo)
+{
+	var->i = 0;
+	while (var->i < data->philo_count)
 	{
 		philo = &data->philos[i];
-		philo->data = data;
-		philo->id = i + 1;
-		philo->is_dead = 0;
-		philo_nbr = philo->data->n_philos;
-		philo->r_fork = &data->forks[i];
-		philo->l_fork = &data->forks[(i + 1) % data->n_philos];
-		if (!philo->id % 2)
+		philo->id = var->i + 1;
+		philo->meal_count = 0;
+		philo->last_meal = get_current_time();
+		philo->dead = 0;
+		philo->right_fork = &data->forks[var.i];
+		philo->left_fork = &data->forks[(var->i + 1) % data->philo_count];
+		if ((i + 1) % 2)
 		{
-			philo->l_fork = &data->forks[i];
-			philo->r_fork = &data->forks[(i + 1) % data->n_philos];
+			philo->right_fork = &data->forks[(var->i + 1) % data->philo_count];
+			philo->left_fork = &data->forks[var.i];
 		}
-		i++;
+		//init mutex : philo.lstml_mx ??
+		if (pthread_mutex_init(&data->forks[i].frk_mtx, NULL))
+			return (1);
+		data->forks[i].id = var->i;
+		(var->i)++;
 	}
-	i = 0;
-	while (i < data->n_philos)
+	return (init_threads());
+}
+
+int init_threads(t_data *data, t_vars *var)
+{
+	long	start_time;
+
+	var->i = 0;
+	data->start_time = -1;
+	while (var->i < data->philo_count)
 	{
-		pthread_create(&data->philos[i].philo_thread, NULL, &start_sim, &data->philos[i]);
-		i++;
+		if (pthread_create(&data->philos[var.i].thread, NULL, &simulation, &data->philos[var->i]))
+			return (1);
 	}
+	start_time = get_current_time();
+	while (++(var->i) < data->philo_count)
+		data->philos[var->i].last_meal = start_time;
+	locker(&data->lock, &data->start_time, start_time);
+	//stupid running thing ??
+	if (pthread_create(&data->monitor, NULL, &monitoring, data))
+		return (1);
+	return (0);
+}
+
+int	locker(pthread_mutex_t *mtx, void *v1, void *v2)
+{
+	if (pthread_mutex_lock(mtx))
+		return (1);
+	*v1 = *v2;
+	if (pthread_mutex_unlock(mtx))
+		return (1);
 	return (0);
 }

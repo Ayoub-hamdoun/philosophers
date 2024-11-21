@@ -18,42 +18,51 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
+# define MAX 200
 
 //used structs
 
-typedef struct s_philo t_philo;
+// typedef struct s_philo t_philo;
 
+typedef struct s_data t_data;
 typedef struct s_fork
 {
 	int				id;
-	pthread_mutex_t	fork;
+	pthread_mutex_t	frk_mtx;
 }	t_fork;
+
+typedef struct s_philo
+{
+	int				id;           // Philosopher ID
+	int				meal_count;   // Meals eaten by the philosopher
+	long long		last_meal;    // Time of the last meal
+	int				dead;         // Death status of the philosopher
+	pthread_t		thread;       // Philosopher thread
+	t_fork			*left_fork;   // Left fork
+	t_fork			*right_fork;  // Right fork
+	t_data			*data;        // Pointer to shared data
+} t_philo;
 
 typedef struct s_data
 {
-	int		n_philos;
-	long	time_die;
-	long	time_eat;
-	long	time_sleep;
-	int		n_meals;
-	long	start_sim_time;
-	int		is_done;
-	pthread_mutex_t print;
-	t_fork	*forks;
-	t_philo	*philos;
+	int				philo_count;  // Number of philosophers
+	long long		die_time;     // Time until a philosopher dies
+	long long		eat_time;     // Time a philosopher spends eating
+	long long		sleep_time;   // Time a philosopher spends sleeping
+	long long		start_time;   // Simulation start time
+	int				meal_limit;   // Number of meals each philosopher must eat
+	int				sim_end;      // Simulation termination flag
+	int				total_meals;
+	int				meals_taken;
+	pthread_mutex_t	print_lock;   // Mutex for printing messages
+	pthread_mutex_t	lock;
+	pthread_t		monitor;
+	t_fork			forks[MAX];       // Array of forks
+	t_philo			philos[MAX];      // Array of philosophers
 }	t_data;
 
-struct s_philo
-{
-	int			id;
-	int			num_meals;
-	long		time_lmeal;
-	int			is_dead;
-	pthread_t	philo_thread;
-	t_fork		*l_fork;
-	t_fork		*r_fork;
-	t_data		*data;
-};
+
+
 
 typedef struct s_vars
 {
@@ -87,7 +96,7 @@ int		init_data(t_data *data, t_vars *vars);
 int		pars_args(int ac, char *av[], t_vars *vars);
 
 // time:
-long	get_current_time(void);
-long	ft_usleep(long ms);
+long long	get_current_time(void)
+int			ft_usleep(long ms);
 
 #endif

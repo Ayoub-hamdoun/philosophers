@@ -12,9 +12,9 @@
 
 #include "../philo.h"
 
-long	get_current_time(void)
+long long	get_current_time(void)
 {
-	long			current;
+	long long		current;
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL))
@@ -23,7 +23,7 @@ long	get_current_time(void)
 	return (current);
 }
 
-long	ft_usleep(long ms)
+int	ft_usleep(long ms)
 {
 	long	i;
 	long	j;

@@ -71,16 +71,18 @@ int	main(int argc, char *argv[])
 	// atexit(leaks);
 	pars_args(argc, argv, &vars);
 	init_data(&data, &vars);
-	while (i < data.n_philos)
-	{
-		pthread_join(data.philos[i].philo_thread, NULL);
-		i++;
-	}
+	
+	// while (i < data.philo_count)
+	// {
+	// 	pthread_join(data.philos[i].thread, NULL);
+	// 	i++;
+	// }
 	return (0);
 }
 //TODO : SEE BELOW
 /**
- * ft_atol instad of atoi : for > INTMAX args
+ * if meals limit = 0!!!!!
+ * check negative args !!!!
  * data vaidation : n philos <= 200
  * 
  */

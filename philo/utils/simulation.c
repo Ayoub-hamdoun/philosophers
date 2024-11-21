@@ -15,34 +15,24 @@
 void	is_eating(t_data *data)
 {
 	ft_print("eating", data);
-	ft_usleep(data->time_eat);
+	ft_usleep(data->eat_time);
 }
 
 void	is_sleeping(t_data *data)
 {
 	ft_print("sleep", data);
-	ft_usleep(data->time_sleep);
+	ft_usleep(data->sleep_time);
 }
 
-void	*start_sim(void *arg)
+void	*simulation(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo *philo;
+	t_data	*data;
+	int		end;
 
-	pthread_mutex_lock(&philo->l_fork->fork);
-	printf("%ld philo %d picked left fork\n", get_current_time() - philo->data->start_sim_time, philo->id);
-	pthread_mutex_lock(&philo->r_fork->fork);
-	printf("%ld philo %d picked right fork\n", get_current_time() - philo->data->start_sim_time, philo->id);
-	
-	ft_usleep(philo->data->time_eat);
-	philo->num_meals++;
-	philo->time_lmeal = get_current_time() - philo->data->start_sim_time;
-	pthread_mutex_unlock(&philo->l_fork->fork);
-	pthread_mutex_unlock(&philo->r_fork->fork);
-
-	printf("%ld philo %d is sleeping\n", get_current_time() - philo->data->start_sim_time, philo->id);
-	ft_usleep(philo->data->time_sleep);
-
-	printf("%ld philo %d is sleeping\n", get_current_time() - philo->data->start_sim_time, philo->id);
+	philo = (t_philo *)arg;
+	data = philo->data;
+	if ()
 	return (NULL);
 }
 

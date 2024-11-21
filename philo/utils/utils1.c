@@ -14,9 +14,9 @@
 
 void	ft_print(char *str, t_data *data)
 {
-	pthread_mutex_lock(&data->print);
+	pthread_mutex_lock(&data->print_lock);
 	printf("%s\n", str);
-	pthread_mutex_unlock(&data->print);
+	pthread_mutex_unlock(&data->print_lock);
 }
 
 //TODO : print data based on type : d for timestamps, s for simple msgs...;
