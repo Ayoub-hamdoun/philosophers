@@ -66,11 +66,18 @@ int	main(int argc, char *argv[])
 {
 	t_data		data;
 	t_vars 		vars;
+	t_philo		*philos;
 	int i = 0;
 
 	// atexit(leaks);
-	pars_args(argc, argv, &vars);
-	init_data(&data, &vars);
+	if (pars_args(argc, argv, &vars))
+		return (1);
+	if (init_data(&data, &vars))
+		return(1);
+	if (init_mtx(&data))
+		return(1);
+	if (init_philo(&data, &vars, &philos));
+		return (1);
 	
 	// while (i < data.philo_count)
 	// {

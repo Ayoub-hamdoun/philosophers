@@ -40,10 +40,12 @@ int	init_data(t_data *data, t_vars *vars)
 	data->meal_limit = vars->args[4];
 	data->start_time = get_current_time();
 	data->total_meals = 0;
+	data->finished = 0;
+	data->finished_eat = 0;
 	//finished _ finished eat ??
 	if (data->meal_limit != -1)
 		data->total_meals = data->meal_limit * data->philo_count;
-
+	return (0);
 	// data->forks = malloc(sizeof(t_fork) * data->n_philos);
 	// if (!(data->forks))
 	// {
@@ -89,7 +91,7 @@ int	init_data(t_data *data, t_vars *vars)
 	// 	pthread_create(&data->philos[i].philo_thread, NULL, &start_sim, &data->philos[i]);
 	// 	i++;
 	// }
-	return (init_philo(data, vars));
+	// return (init_philo(data, vars));
 }
 
 int init_mtx(t_data *data)
@@ -97,42 +99,41 @@ int init_mtx(t_data *data)
 	int	i;
 
 	i = 0;
-	pthread_mutex_init(&data->print_lock, NULL);
-	pthread_mutex_init(&data->lock, NULL);
-	data->forks = (t_fork *)malloc(sizeof(t_fork) * data->philo_count);
+	if (pthread_mutex_init(&data->print_lock, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->m_fe, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->m_finished, NULL))
+		return (1);
+	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_count);
 	while (i < data->philo_count)
 	{
-		pthread_mutex_init(&data->forks[i].frk_mtx, NULL);
-		data->forks[i].id = i + 1;
+		if (pthread_mutex_init(&data->forks[i], NULL))
+			return(1);
 		i++;
 	}
 	return (0);
 }
 
-int	init_philo(t_data *data, t_vars *var, t_philo *philo)
+int	init_philo(t_data *data, t_vars *var, t_philo **philo)
 {
+	*philo = malloc(sizeof(t_philo) * data->philo_count);
+	if (!philo)
+		return (1);
 	var->i = 0;
 	while (var->i < data->philo_count)
 	{
-		philo = &data->philos[var->i];
-		philo->id = var->i + 1;
-		philo->meal_count = 0;
-		philo->last_meal = get_current_time();
-		philo->dead = 0;
-		philo->right_fork = &data->forks[var->i];
-		philo->left_fork = &data->forks[(var->i + 1) % data->philo_count];
-		if ((var->i + 1) % 2)
-		{
-			philo->right_fork = &data->forks[(var->i + 1) % data->philo_count];
-			philo->left_fork = &data->forks[var->i];
-		}
-		//init mutex : philo.lstml_mx ??
-		if (pthread_mutex_init(&data->forks[var->i].frk_mtx, NULL))
+		(*philo)->data = data;
+		(*philo)->id = i + 1;
+		(*philo)->left_fork = i;
+		(*philo)->right_fork = (i + 1) % data->philo_count;
+		(*philo)->last_meal = -1;
+		(*philo)->meal_count = 0;
+		if (pthread_mutex_init(&(*philo)[i].m_lastmeal, NULL))
 			return (1);
-		data->forks[var->i].id = var->i;
 		(var->i)++;
 	}
-	return (init_threads());
+	return (0);
 }
 
 int init_threads(t_data *data, t_vars *var)
