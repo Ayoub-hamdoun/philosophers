@@ -45,7 +45,7 @@ int	pars_args(int ac, char *av[], t_vars *vars)
 	{
 		if (is_empty(av[vars->i]))
 			return (print_error("ERROR: empty argument", NULL));
-		raw_args = ft_split(av[vars->i], ' ');
+		raw_args = ft_split(av[vars->i], ' '); //NOTE - protection here
 		vars->j = 0;
 		while (raw_args[vars->j])
 		{
@@ -78,7 +78,8 @@ int	main(int argc, char *argv[])
 		return(1);
 	if (init_philo(&data, &vars, &philos));
 		return (1);
-	
+	if (create_philosopher_threads(&data, philos, &vars))
+		return (1);
 	// while (i < data.philo_count)
 	// {
 	// 	pthread_join(data.philos[i].thread, NULL);

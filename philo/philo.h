@@ -57,7 +57,7 @@ typedef struct s_data
 	int				finished;
 	int				finished_eat;
 	pthread_mutex_t	print_lock;   // Mutex for printing messages
-	pthread_mutex_t	m_fe;
+	pthread_mutex_t	m_finished_eat;
 	pthread_mutex_t	m_finished;
 	pthread_mutex_t	*forks;       // Array of forks
 	pthread_t		monitor;
@@ -102,5 +102,6 @@ int		pars_args(int ac, char *av[], t_vars *vars);
 // time:
 long long	get_current_time(void);
 int			ft_usleep(long ms);
+long long time_diff(long long start_sim);
 
 #endif

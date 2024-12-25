@@ -43,6 +43,16 @@ int	ft_usleep(long ms)
 	return (0);
 }
 
+long long time_diff(long long start_sim)
+{
+	long long	diff;
+
+	diff = get_current_time() - start_sim;
+	if (diff < 0)
+		return (0);
+	return (diff);
+}
+
 // int main()
 // {
 // 	long t1 = get_current_time();
