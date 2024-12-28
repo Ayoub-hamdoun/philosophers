@@ -69,7 +69,6 @@ int	main(int argc, char *argv[])
 	t_philo		*philos;
 	int i = 0;
 
-	// atexit(leaks);
 	if (pars_args(argc, argv, &vars))
 		return (1);
 	if (init_data(&data, &vars))
@@ -78,13 +77,8 @@ int	main(int argc, char *argv[])
 		return(1);
 	if (init_philo(&data, &vars, &philos));
 		return (1);
-	if (create_philosopher_threads(&data, philos, &vars))
+	if (init_threads(&data, philos, &vars))
 		return (1);
-	// while (i < data.philo_count)
-	// {
-	// 	pthread_join(data.philos[i].thread, NULL);
-	// 	i++;
-	// }
 	return (0);
 }
 //TODO : SEE BELOW
