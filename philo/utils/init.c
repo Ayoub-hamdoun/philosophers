@@ -141,7 +141,7 @@ void	*philosopher_routine(void *arg)
 
 int	meals_count_check(t_data *data)
 {
-	if (data->meal_limit && data->finished_eat == data->total_meals)
+	if (data->meal_limit != -1 && data->finished_eat == data->total_meals)
 	{
 		pthread_mutex_lock(&data->m_finished);
 		data->finished = 1;
