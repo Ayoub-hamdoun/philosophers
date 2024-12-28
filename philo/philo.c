@@ -67,7 +67,7 @@ int	main(int argc, char *argv[])
 	t_data		data;
 	t_vars 		vars;
 	t_philo		*philos;
-	int i = 0;
+	// int i = 0;
 
 	if (pars_args(argc, argv, &vars))
 		return (1);
@@ -75,9 +75,9 @@ int	main(int argc, char *argv[])
 		return(1);
 	if (init_mtx(&data))
 		return(1);
-	if (init_philo(&data, &vars, &philos));
+	if (init_philo(&data, &philos))
 		return (1);
-	if (init_threads(&data, philos, &vars))
+	if (init_threads(&data, philos))
 		return (1);
 	return (0);
 }

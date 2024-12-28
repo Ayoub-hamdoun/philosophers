@@ -19,7 +19,7 @@ RM = rm -rf
 FLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -g -O
 
 SRC = utils/utils.c utils/utils1.c utils/ft_split.c utils/errors.c utils/cleanup.c\
-		utils/init.c utils/time.c utils/simulation.c
+		utils/init.c utils/time.c
 OBJS = $(SRC:%.c=%.o)
 MAIN = philo.c
 

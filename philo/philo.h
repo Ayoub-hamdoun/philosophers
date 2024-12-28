@@ -83,8 +83,8 @@ void	ft_print(char *str, t_data *data);
 // init
 int		init_mtx(t_data *data);
 int		init_data(t_data *data, t_vars *vars);
-int		init_philo(t_data *data, t_vars *var, t_philo **philo);
-int 	init_threads(t_data *data, t_philo *philos, t_vars *vars);
+int		init_philo(t_data *data, t_philo **philo);
+int 	init_threads(t_data *data, t_philo *philos);
 // simulation
 void	*start_sim(void *philo);
 
