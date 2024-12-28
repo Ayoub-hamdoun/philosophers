@@ -6,7 +6,7 @@
 /*   By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:45:53 by ayhamdou          #+#    #+#             */
-/*   Updated: 2024/10/24 10:28:06 by ayhamdou         ###   ########.fr       */
+/*   Updated: 2024/12/28 20:51:00 by ayhamdou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_usleep(long ms)
 	return (0);
 }
 
-long long time_diff(long long start_sim)
+long long	time_diff(long long start_sim)
 {
 	long long	diff;
 
@@ -52,14 +52,3 @@ long long time_diff(long long start_sim)
 		return (0);
 	return (diff);
 }
-
-// int main()
-// {
-// 	long t1 = get_current_time();
-// 	// usleep(800000);
-// 	ft_usleep(800);
-// 	long t2 = get_current_time();
-
-// 	printf("%ld",t2 - t1);
-// 	return 0;
-// }

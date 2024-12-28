@@ -6,7 +6,7 @@
 #    By: ayhamdou <ayhamdou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/25 21:39:32 by ayhamdou          #+#    #+#              #
-#    Updated: 2024/10/25 22:03:46 by ayhamdou         ###   ########.fr        #
+#    Updated: 2024/12/28 20:35:06 by ayhamdou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@ NAME = philo
 HEADER = philo.h
 CC = cc
 RM = rm -rf
-#FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 #FLAGS = -Wall -Wextra -Werror -fsanitize=thread -g -O1
-FLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -g -O
+# FLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -g -O
 
 SRC = utils/utils.c utils/utils1.c utils/ft_split.c utils/errors.c utils/cleanup.c\
-		utils/init.c utils/time.c
+		utils/init.c utils/time.c utils/simulation.c
 OBJS = $(SRC:%.c=%.o)
 MAIN = philo.c
 
