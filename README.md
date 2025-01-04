@@ -57,7 +57,7 @@ philosophers have eaten at least [number_of_times_each_philosopher_must_eat]
 times, the simulation stops. If not specified, the simulation stops when a
 philosopher dies.
 
-** e.g **:
+**e.g.**:
 
 ./philo 5 800 200 200 : No philosopher should die
 ./philo 5 800 200 200 7 : No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
