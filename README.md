@@ -60,5 +60,7 @@ philosopher dies.
 **e.g.**:
 
 ./philo 5 800 200 200 : No philosopher should die
+
 ./philo 5 800 200 200 7 : No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
+
 ./philo 4 310 200 100 : One philosopher should die
